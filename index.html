@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8" />
+  <title>محاسبه‌گر و عیب‌یاب سیستم خورشیدی</title>
+  <style>
+    body {
+      font-family: Tahoma, sans-serif;
+      background: #f5f7fa;
+      padding: 20px;
+      direction: rtl;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin: 15px auto;
+      max-width: 600px;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 6px;
+      margin-top: 4px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .help {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 6px;
+    }
+    button {
+      background: #4CAF50;
+      color: #fff;
+      padding: 10px 20px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .result {
+      margin-top: 15px;
+      padding: 12px;
+      background: #f0f9ff;
+      border-radius: 8px;
+      border: 1px solid #b6e0fe;
+    }
+  </style>
+</head>
+<body>
+  <h1>محاسبه‌گر و عیب‌یاب سیستم خورشیدی</h1>
+
+  <div class="card">
+    <h2>ورودی‌ها</h2>
+
+    <label>توان پنل (وات)</label>
+    <input id="panelW" type="number" value="280" />
+    <div class="help">توان اسمی خروجی هر پنل خورشیدی (Watt).</div>
+
+    <label>ولتاژ مدار باز پنل (Voc)</label>
+    <input id="panelVoc" type="number" value="42" />
+    <div class="help">ولتاژی که پنل در حالت بی‌بار تولید می‌کند (Open Circuit Voltage).</div>
+
+    <label>جریان اتصال کوتاه پنل (Isc)</label>
+    <input id="panelIsc" type="number" value="9" />
+    <div class="help">بیشترین جریان خروجی پنل در تابش کامل خورشید (Short Circuit Current).</div>
+
+    <label>تعداد پنل</label>
+    <input id="panelCount" type="number" value="2" />
+    <div class="help">تعداد کل پنل‌های خورشیدی موجود.</div>
+
+    <label>ظرفیت شارژ کنترلر (آمپر)</label>
+    <input id="controllerA" type="number" value="30" />
+    <div class="help">حداکثر جریانی که شارژ کنترلر می‌تواند تحمل کند.</div>
+
+    <label>حداکثر ولتاژ PV کنترلر (ولت)</label>
+    <input id="controllerV" type="number" value="100" />
+    <div class="help">بیشترین ولتاژ ورودی مجاز از سمت پنل‌ها به شارژ کنترلر.</div>
+
+    <label>ولتاژ سیستم (ولت)</label>
+    <input id="systemV" type="number" value="24" />
+    <div class="help">ولتاژ نامی باتری/سیستم (معمولاً 12V یا 24V یا 48V).</div>
+
+    <label>ظرفیت باتری (Ah)</label>
+    <input id="batteryAh" type="number" value="100" />
+    <div class="help">ظرفیت هر باتری بر حسب آمپر-ساعت.</div>
+
+    <label>تعداد باتری</label>
+    <input id="batteryCount" type="number" value="2" />
+    <div class="help">تعداد کل باتری‌های موجود در سیستم.</div>
+
+    <label>مصرف روزانه (وات‌ساعت)</label>
+    <input id="loadWh" type="number" value="2000" />
+    <div class="help">مجموع انرژی مصرفی وسایل در طول یک روز.</div>
+
+    <button onclick="calculate()">محاسبه و عیب‌یابی</button>
+    <div id="output" class="result"></div>
+  </div>
+
+  <script>
+    function calculate() {
+      const panelW = +document.getElementById("panelW").value;
+      const panelVoc = +document.getElementById("panelVoc").value;
+      const panelIsc = +document.getElementById("panelIsc").value;
+      const panelCount = +document.getElementById("panelCount").value;
+      const controllerA = +document.getElementById("controllerA").value;
+      const controllerV = +document.getElementById("controllerV").value;
+      const systemV = +document.getElementById("systemV").value;
+      const batteryAh = +document.getElementById("batteryAh").value;
+      const batteryCount = +document.getElementById("batteryCount").value;
+      const loadWh = +document.getElementById("loadWh").value;
+
+      const totalPower = panelW * panelCount;
+      const totalVoc = panelVoc; // فعلاً فرض سری ساده
+      const totalIsc = panelIsc; // فعلاً فرض ساده
+      const batteryWh = batteryAh * systemV * batteryCount;
+      const chargeCurrent = totalPower / systemV;
+
+      let diagnosis = "";
+      if (totalVoc > controllerV) {
+        diagnosis += "⚠️ ولتاژ پنل‌ها از محدوده کنترلر بیشتر است!<br>";
+      }
+      if (chargeCurrent > controllerA) {
+        diagnosis += "⚠️ جریان شارژ بیشتر از ظرفیت کنترلر است!<br>";
+      }
+      if (loadWh > batteryWh * 0.5) {
+        diagnosis += "⚠️ مصرف روزانه بیش از ۵۰٪ ظرفیت باتری است (عمر باتری کاهش می‌یابد).<br>";
+      }
+      if (!diagnosis) diagnosis = "✅ طراحی مشکلی ندارد.";
+
+      document.getElementById("output").innerHTML = `
+        <b>توان کل پنل‌ها:</b> ${totalPower} W <br>
+        <b>جریان شارژ تقریبی:</b> ${chargeCurrent.toFixed(1)} A <br>
+        <b>ظرفیت کل باتری:</b> ${batteryWh} Wh <br>
+        <b>مصرف روزانه:</b> ${loadWh} Wh <br>
+        <hr>
+        <b>عیب‌یابی:</b><br>${diagnosis}
+      `;
+    }
+  </script>
+</body>
+</html>
