@@ -104,9 +104,15 @@
 
     <label>مصرف روزانه (وات‌ساعت)</label>
     <input id="loadWh" type="number" value="2000" />
-    <div class="help">مجموع انرژی مصرفی وسایل در طول یک روز.</div>
+<div class="help">مجموع انرژی مصرفی وسایل در طول یک روز.</div>
 
-    <button onclick="calculate()">محاسبه و عیب‌یابی</button>
+<div id="componentImages">
+    <img id="panelImg" src="img/panel-default.png" alt="Panel Status" style="width: 100px; margin: 10px;">
+    <img id="controllerImg" src="img/controller-default.png" alt="Controller Status" style="width: 100px; margin: 10px;">
+    <img id="batteryImg" src="img/battery-default.png" alt="Battery Status" style="width: 100px; margin: 10px;">
+</div>
+
+<button onclick="calculate()">محاسبه و عیب‌یابی</button>
     <div id="output" class="result"></div>
   </div>
 
@@ -122,6 +128,11 @@
       const batteryAh = +document.getElementById("batteryAh").value;
       const batteryCount = +document.getElementById("batteryCount").value;
       const loadWh = +document.getElementById("loadWh").value;
+
+      // Get image elements
+      const panelImg = document.getElementById('panelImg');
+      const controllerImg = document.getElementById('controllerImg');
+      const batteryImg = document.getElementById('batteryImg');
 
       const totalPower = panelW * panelCount;
       const totalVoc = panelVoc; // فعلاً فرض سری ساده
@@ -140,6 +151,11 @@
         diagnosis += "⚠️ مصرف روزانه بیش از ۵۰٪ ظرفیت باتری است (عمر باتری کاهش می‌یابد).<br>";
       }
       if (!diagnosis) diagnosis = "✅ طراحی مشکلی ندارد.";
+
+      // Update images based on status
+      panelImg.src = totalVoc > controllerV ? 'img/panel-error.png' : 'img/panel-ok.png';
+      controllerImg.src = chargeCurrent > controllerA ? 'img/controller-error.png' : 'img/controller-ok.png';
+      batteryImg.src = loadWh > batteryWh * 0.5 ? 'img/battery-error.png' : 'img/battery-ok.png';
 
       document.getElementById("output").innerHTML = `
         <b>توان کل پنل‌ها:</b> ${totalPower} W <br>
