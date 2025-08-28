@@ -1,6 +1,6 @@
 # محاسبه‌گر و عیب‌یاب سیستم خورشیدی | Solar System Calculator & Troubleshooter
 
-نمایش لایو ابزار:
+نمایش محاسبه گر: 
 https://saeedalimi.github.io/solar-calculator/
 
 ## توضیح فارسی
