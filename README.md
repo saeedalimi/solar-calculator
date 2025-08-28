@@ -1,7 +1,7 @@
 # محاسبه‌گر و عیب‌یاب سیستم خورشیدی | Solar System Calculator & Troubleshooter
 
-نمایش محاسبه گر: 
-https://saeedalimi.github.io/solar-calculator/
+
+ <a href="https://saeedalimi.github.io/solar-calculator/" target="_blank">نمایش محاسبه گر سولار</a> 
 
 ## توضیح فارسی
 این پروژه یک ابزار وب ساده برای محاسبه و عیب‌یابی سیستم‌های خورشیدی است.  
