@@ -21,6 +21,7 @@ Users can enter details about panels, batteries, and charge controllers, and the
 
 This tool is designed for engineers and solar enthusiasts to help design systems quickly and safely.
 
+<a href="https://saeedalimi.github.io/solar-calculator/" target="_blank">نمایش محاسبه گر سولار</a> 
 ## نحوه استفاده | How to Use
 1. فایل `index.html` را باز کنید.  
 2. مقادیر مربوط به سیستم خورشیدی خود را وارد کنید.  
