@@ -3,8 +3,7 @@
 
  <a href="https://saeedalimi.github.io/solar-calculator/" target="_blank">نمایش محاسبه گر سولار</a> 
 
-## توضیح فارسی
-این پروژه یک ابزار وب ساده برای محاسبه و عیب‌یابی سیستم‌های خورشیدی است.  
+##این پروژه یک ابزار وب ساده برای محاسبه و عیب‌یابی سیستم‌های خورشیدی است.  
 کاربر می‌تواند اطلاعات مربوط به پنل‌ها، باتری‌ها و کنترلر شارژ را وارد کند و نرم‌افزار:  
 - توان کل پنل‌ها را محاسبه می‌کند  
 - جریان شارژ تقریبی را محاسبه می‌کند  
@@ -13,8 +12,7 @@
 
 این ابزار برای مهندسین و علاقه‌مندان به انرژی خورشیدی طراحی شده است تا طراحی سیستم‌ها را سریع‌تر و ایمن‌تر انجام دهند.
 
-## English Description
-This project is a simple web tool for calculating and troubleshooting solar power systems.  
+##This project is a simple web tool for calculating and troubleshooting solar power systems.  
 Users can enter details about panels, batteries, and charge controllers, and the tool will:  
 - Calculate total panel power  
 - Estimate charging current  
